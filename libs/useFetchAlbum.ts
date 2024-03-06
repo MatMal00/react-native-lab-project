@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import useSWRImmutable from "swr/immutable";
 import { IPhoto } from "@/types";
 import { addPhotoToAlbumAction, fetcher, removePhotoFromAlbumAction } from "@/actions";
-import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/helpers";
 
 export const useFetchAlbum = (albumId?: string) => {
     const { data, error, isLoading, mutate } = useSWRImmutable<IPhoto[], string>(`/photos?albumId=${albumId}`, fetcher);
@@ -15,9 +15,9 @@ export const useFetchAlbum = (albumId?: string) => {
                     populateCache: true,
                     revalidate: false,
                 });
-                toast.success("Successfully added the photo");
+                toastSuccess("Successfully added the photo");
             } catch {
-                toast.error("Failed to add photo");
+                toastError("Failed to add photo");
             }
         },
         [albumId, mutate]
@@ -31,9 +31,9 @@ export const useFetchAlbum = (albumId?: string) => {
                     populateCache: true,
                     revalidate: false,
                 });
-                toast.success("Successfully removed the photo");
+                toastSuccess("Successfully removed the photo");
             } catch {
-                toast.error("Failed to removed photo");
+                toastError("Failed to removed photo");
             }
         },
         [mutate]

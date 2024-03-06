@@ -2,7 +2,7 @@ import SWR from "swr";
 import { addPostAction, fetcher, removePostAction } from "@/actions";
 import { IPost } from "@/types";
 import { useCallback } from "react";
-import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/helpers";
 
 export const useFetchPosts = () => {
     const { data, error, isLoading, mutate } = SWR<IPost[], string>("/posts", fetcher);
@@ -15,9 +15,9 @@ export const useFetchPosts = () => {
                     populateCache: true,
                     revalidate: false,
                 });
-                toast.success("Successfully added post");
+                toastSuccess("Successfully added post");
             } catch {
-                toast.error("Failed to add post");
+                toastError("Failed to add post");
             }
         },
         [mutate]
@@ -31,9 +31,9 @@ export const useFetchPosts = () => {
                     populateCache: true,
                     revalidate: false,
                 });
-                toast.success("Successfully removed post");
+                toastSuccess("Successfully removed post");
             } catch {
-                toast.error("Failed to removed post");
+                toastError("Failed to removed post");
             }
         },
         [mutate]

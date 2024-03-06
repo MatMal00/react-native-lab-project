@@ -1,6 +1,5 @@
 import api from "@/api";
-import { apiErrorHandler, httpStatus } from "@/helpers";
-import toast from "react-hot-toast";
+import { apiErrorHandler, httpStatus, toastError } from "@/helpers";
 
 export const fetcher = async <T>(url: string) => {
     try {
@@ -17,7 +16,7 @@ export const fetcher = async <T>(url: string) => {
         return response.data;
     } catch (error) {
         const errorMessage = apiErrorHandler(error);
-        toast.error(errorMessage);
+        toastError(errorMessage);
         throw apiErrorHandler(error);
     }
 };

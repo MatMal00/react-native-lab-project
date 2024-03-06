@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import { SWRConfig } from "swr";
+import Toast from "react-native-toast-message";
 
 export {
     // Catch any errors thrown by the Layout component.
@@ -73,6 +74,7 @@ function RootLayoutNav() {
                     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                     <Stack.Screen name="modal" options={{ presentation: "modal" }} />
                 </Stack>
+                <Toast />
             </SWRConfig>
         </ThemeProvider>
     );

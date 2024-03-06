@@ -2,7 +2,7 @@ import SWR from "swr";
 import { addCommentAction, fetcher, removeCommentAction } from "@/actions";
 import { IComment } from "@/types";
 import { useCallback } from "react";
-import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/helpers";
 
 export const useFetchComments = (postId: number) => {
     const { data, error, isLoading, mutate } = SWR<IComment[], string>(`/posts/${postId}/comments`, fetcher);
@@ -15,9 +15,9 @@ export const useFetchComments = (postId: number) => {
                     populateCache: true,
                     revalidate: false,
                 });
-                toast.success("Successfully added comment");
+                toastSuccess("Successfully added comment");
             } catch {
-                toast.error("Failed to add comment");
+                toastError("Failed to add comment");
             }
         },
         [postId, mutate]
@@ -31,9 +31,9 @@ export const useFetchComments = (postId: number) => {
                     populateCache: true,
                     revalidate: false,
                 });
-                toast.success("Successfully removed comment");
+                toastSuccess("Successfully removed comment");
             } catch {
-                toast.error("Failed to removed comment");
+                toastError("Failed to removed comment");
             }
         },
         [mutate]
