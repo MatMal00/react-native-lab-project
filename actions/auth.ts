@@ -3,6 +3,7 @@ import { updateRequest } from "./mutations";
 import api from "@/api";
 import { httpStatus } from "@/helpers";
 import { IUser } from "@/types";
+import * as SecureStore from "expo-secure-store";
 
 export const sendLoginCall = async (url: string, { arg: { email } }: { arg: { email: string } }) => {
     const response = await api().get<IUser[]>(url);
@@ -17,8 +18,12 @@ export const sendLoginCall = async (url: string, { arg: { email } }: { arg: { em
 };
 
 export const getUserFromLocalStorage = (): IUser | undefined => {
-    const user = window.localStorage.getItem("user");
-    if (user) return JSON.parse(user);
+    try {
+        const user = SecureStore.getItem("user");
+        if (user) return JSON.parse(user);
+    } catch {
+        return;
+    }
 };
 
 export const updateUserDataAction = async (updatedData: Partial<IUser>, user: IUser) => {
