@@ -20,3 +20,21 @@ export const setStorageItemAsync = async (key: string, value: string | null) => 
         }
     }
 };
+
+export const getStorageItemAsync = (key: string) => {
+    if (Platform.OS === "web") {
+        try {
+            const item = localStorage.getItem(key);
+            if (item) return JSON.parse(item);
+        } catch {
+            return null;
+        }
+    } else {
+        try {
+            const item = SecureStore.getItem(key);
+            if (item) return JSON.parse(item);
+        } catch {
+            return null;
+        }
+    }
+};
