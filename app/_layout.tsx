@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useColorScheme } from "@/components/useColorScheme";
 import { SWRConfig } from "swr";
 import Toast from "react-native-toast-message";
+import RouteProtector from "@/components/RouteProtector";
 
 export {
     // Catch any errors thrown by the Layout component.
@@ -74,10 +75,12 @@ const RootLayoutNav = () => {
 
     return (
         <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-            <Stack>
-                <Stack.Screen name="(public)" options={{ headerShown: false }} />
-                <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-            </Stack>
+            <RouteProtector>
+                <Stack>
+                    <Stack.Screen name="(public)" options={{ headerShown: false }} />
+                    <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+                </Stack>
+            </RouteProtector>
             <Toast />
         </ThemeProvider>
     );

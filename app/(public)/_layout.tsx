@@ -17,6 +17,21 @@ const TabLayout = () => {
     const { isLoggedIn } = useAuth();
     const colorScheme = useColorScheme();
 
+    const headerIcon = isLoggedIn ? (
+        <Link href="/profile" asChild>
+            <Pressable>
+                {({ pressed }) => (
+                    <FontAwesome
+                        name="user-circle"
+                        size={25}
+                        color={Colors[colorScheme ?? "light"].text}
+                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                    />
+                )}
+            </Pressable>
+        </Link>
+    ) : null;
+
     return (
         <Tabs
             screenOptions={{
@@ -31,21 +46,7 @@ const TabLayout = () => {
                 options={{
                     title: "Home",
                     tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-                    headerRight: () =>
-                        isLoggedIn ? (
-                            <Link href="/profile" asChild>
-                                <Pressable>
-                                    {({ pressed }) => (
-                                        <FontAwesome
-                                            name="user-circle"
-                                            size={25}
-                                            color={Colors[colorScheme ?? "light"].text}
-                                            style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                                        />
-                                    )}
-                                </Pressable>
-                            </Link>
-                        ) : null,
+                    headerRight: () => headerIcon,
                 }}
             />
             <Tabs.Screen
@@ -53,6 +54,7 @@ const TabLayout = () => {
                 options={{
                     title: "Albums",
                     tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
+                    headerRight: () => headerIcon,
                 }}
             />
             <Tabs.Screen
@@ -60,6 +62,7 @@ const TabLayout = () => {
                 options={{
                     title: "Posts",
                     tabBarIcon: ({ color }) => <TabBarIcon name="pencil" color={color} />,
+                    headerRight: () => headerIcon,
                 }}
             />
             <Tabs.Screen
