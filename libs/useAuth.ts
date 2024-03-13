@@ -2,8 +2,7 @@ import { useCallback } from "react";
 import useSWRMutation from "swr/mutation";
 import useImmutableSWR from "swr/immutable";
 import { getUserFromLocalStorage, sendLoginCall, updateUserDataAction } from "@/actions";
-import * as SecureStore from "expo-secure-store";
-import { apiErrorHandler, toastError, toastSuccess } from "@/helpers";
+import { apiErrorHandler, deleteStorageItemAsync, setStorageItemAsync, toastError, toastSuccess } from "@/helpers";
 import { IUser } from "@/types";
 import { router } from "expo-router";
 import { ROUTE } from "@/constants";
@@ -20,7 +19,7 @@ export const useAuth = () => {
                 const userToLogin = await trigger({ email });
 
                 mutate(userToLogin, { revalidate: false });
-                SecureStore.setItem("user", JSON.stringify(userToLogin));
+                setStorageItemAsync("user", JSON.stringify(userToLogin));
 
                 router.replace(ROUTE.HOME);
             } catch (error) {
@@ -49,11 +48,7 @@ export const useAuth = () => {
 
     const logout = useCallback(async () => {
         mutate(undefined, { revalidate: false });
-        try {
-            await SecureStore.deleteItemAsync("user");
-        } catch {
-            return;
-        }
+        deleteStorageItemAsync("user");
     }, [mutate]);
 
     return { user, login, logout, updateUserData, isLoading, error, isLoggedIn: !!user };
