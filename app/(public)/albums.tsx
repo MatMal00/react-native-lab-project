@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 
-export default function AlbumsScreen() {
+const AlbumsScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Albums</Text>
@@ -11,7 +11,8 @@ export default function AlbumsScreen() {
             <EditScreenInfo path="app/(tabs)/index.tsx" />
         </View>
     );
-}
+};
+export default AlbumsScreen;
 
 const styles = StyleSheet.create({
     container: {

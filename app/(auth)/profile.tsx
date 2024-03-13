@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 
-export default function SettingsScreen() {
+const SettingsScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Settings</Text>
@@ -11,7 +11,8 @@ export default function SettingsScreen() {
             <EditScreenInfo path="app/(tabs)/settings.tsx" />
         </View>
     );
-}
+};
+export default SettingsScreen;
 
 const styles = StyleSheet.create({
     container: {

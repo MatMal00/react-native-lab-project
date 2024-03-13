@@ -22,7 +22,7 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+const RootLayout = () => {
     const [loaded, error] = useFonts({
         SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
         ...FontAwesome.font,
@@ -66,9 +66,10 @@ export default function RootLayout() {
             <RootLayoutNav />
         </SWRConfig>
     );
-}
+};
+export default RootLayout;
 
-function RootLayoutNav() {
+const RootLayoutNav = () => {
     const colorScheme = useColorScheme();
 
     return (
@@ -80,4 +81,4 @@ function RootLayoutNav() {
             <Toast />
         </ThemeProvider>
     );
-}
+};

@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 
-export default function PostsScreen() {
+const PostsScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Posts</Text>
@@ -11,7 +11,8 @@ export default function PostsScreen() {
             <EditScreenInfo path="app/(tabs)/posts.tsx" />
         </View>
     );
-}
+};
+export default PostsScreen;
 
 const styles = StyleSheet.create({
     container: {

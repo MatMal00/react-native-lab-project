@@ -2,7 +2,7 @@ import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 import { StyleSheet } from "react-native";
 
-export default function LoginScreen() {
+const LoginScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Login</Text>
@@ -10,7 +10,8 @@ export default function LoginScreen() {
             <EditScreenInfo path="app/(tabs)/login.tsx" />
         </View>
     );
-}
+};
+export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {

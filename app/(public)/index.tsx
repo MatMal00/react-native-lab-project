@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 
-export default function HomeScreen() {
+const HomeScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Home</Text>
@@ -11,7 +11,8 @@ export default function HomeScreen() {
             <EditScreenInfo path="app/(tabs)/index.tsx" />
         </View>
     );
-}
+};
+export default HomeScreen;
 
 const styles = StyleSheet.create({
     container: {
