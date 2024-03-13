@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import useSWRMutation from "swr/mutation";
 import useImmutableSWR from "swr/immutable";
 import { getUserFromLocalStorage, sendLoginCall, updateUserDataAction } from "@/actions";
-import { apiErrorHandler, deleteStorageItemAsync, setStorageItemAsync, toastError, toastSuccess } from "@/helpers";
+import { apiErrorHandler, setStorageItemAsync, toastError, toastSuccess } from "@/helpers";
 import { IUser } from "@/types";
 import { router } from "expo-router";
 import { ROUTE } from "@/constants";
@@ -48,7 +48,7 @@ export const useAuth = () => {
 
     const logout = useCallback(async () => {
         mutate(undefined, { revalidate: false });
-        deleteStorageItemAsync("user");
+        setStorageItemAsync("user", null);
     }, [mutate]);
 
     return { user, login, logout, updateUserData, isLoading, error, isLoggedIn: !!user };
