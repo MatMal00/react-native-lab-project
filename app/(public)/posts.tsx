@@ -3,12 +3,15 @@ import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { useFetchPosts } from "@/libs";
 import { ActionsHandler } from "@/components/ActionsHandler";
 import { IPost } from "@/types";
+import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "expo-router";
+import { INavigationType } from "@/types/navigation";
 import Card from "@/components/Card/Card";
 import CardText from "@/components/Card/CardText";
 import Avatar from "@/components/Avatar";
-import { FontAwesome } from "@expo/vector-icons";
 
 const PostsScreen = () => {
+    const navigation = useNavigation<INavigationType>();
     const { ...postsState } = useFetchPosts();
     return (
         <ActionsHandler<IPost[]> {...postsState}>
@@ -17,11 +20,14 @@ const PostsScreen = () => {
                     {posts.map((post) => (
                         <Card key={post.id}>
                             <View style={styles.avatar}>
-                                <Avatar />
+                                <Avatar onPress={() => navigation.navigate("userModal", { id: post.userId })} />
                             </View>
                             <CardText style={styles.title}>{post.title}</CardText>
                             <CardText>{post.body}</CardText>
-                            <Pressable style={styles.commentsBtn} onPress={() => console.log("click")}>
+                            <Pressable
+                                style={styles.commentsBtn}
+                                onPress={() => navigation.navigate("commentsModal", { id: post.id })}
+                            >
                                 <CardText style={{ color: "#c2a83e", fontSize: 15 }}>Comments</CardText>
                                 <FontAwesome name="comment-o" size={30} color={"#c2a83e"} style={{}} />
                             </Pressable>

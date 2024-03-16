@@ -78,7 +78,20 @@ const RootLayoutNav = () => {
             <RouteProtector>
                 <Stack>
                     <Stack.Screen name="(public)" options={{ headerShown: false }} />
-                    <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+                    <Stack.Screen
+                        name="commentsModal"
+                        options={{
+                            presentation: "modal",
+                            headerTitle: "Comments",
+                        }}
+                    />
+                    <Stack.Screen
+                        name="userModal"
+                        options={{
+                            presentation: "modal",
+                            headerTitle: "Author details",
+                        }}
+                    />
                 </Stack>
             </RouteProtector>
             <Toast />

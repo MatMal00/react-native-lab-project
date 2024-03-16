@@ -15,5 +15,6 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
         "prettier/prettier": "error",
         "react-refresh/only-export-components": "off",
+        "@typescript-eslint/no-explicit-any": "off",
     },
 };
