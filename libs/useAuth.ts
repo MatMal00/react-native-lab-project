@@ -49,6 +49,7 @@ export const useAuth = () => {
     const logout = useCallback(async () => {
         mutate(undefined, { revalidate: false });
         setStorageItemAsync("user", null);
+        router.navigate(ROUTE.HOME);
     }, [mutate]);
 
     return { user, login, logout, updateUserData, isLoading, error, isLoggedIn: !!user };

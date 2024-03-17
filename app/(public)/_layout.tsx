@@ -14,7 +14,7 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>["nam
 }
 
 const TabLayout = () => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, logout } = useAuth();
     const colorScheme = useColorScheme();
 
     const headerIcon = isLoggedIn ? (
@@ -32,6 +32,19 @@ const TabLayout = () => {
         </Link>
     ) : null;
 
+    const signOutIcon = isLoggedIn ? (
+        <Pressable onPress={logout}>
+            {({ pressed }) => (
+                <FontAwesome
+                    name="sign-out"
+                    size={25}
+                    color={Colors[colorScheme ?? "light"].text}
+                    style={{ marginLeft: 15, opacity: pressed ? 0.5 : 1 }}
+                />
+            )}
+        </Pressable>
+    ) : null;
+
     return (
         <Tabs
             screenOptions={{
@@ -47,6 +60,7 @@ const TabLayout = () => {
                     title: "Home",
                     tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
                     headerRight: () => headerIcon,
+                    headerLeft: () => signOutIcon,
                 }}
             />
             <Tabs.Screen
@@ -55,6 +69,7 @@ const TabLayout = () => {
                     title: "Albums",
                     tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
                     headerRight: () => headerIcon,
+                    headerLeft: () => signOutIcon,
                 }}
             />
             <Tabs.Screen
@@ -63,6 +78,7 @@ const TabLayout = () => {
                     title: "Posts",
                     tabBarIcon: ({ color }) => <TabBarIcon name="pencil" color={color} />,
                     headerRight: () => headerIcon,
+                    headerLeft: () => signOutIcon,
                 }}
             />
             <Tabs.Screen
