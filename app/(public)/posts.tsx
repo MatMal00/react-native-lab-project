@@ -1,6 +1,6 @@
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 
-import { useFetchPosts } from "@/libs";
+import { useAuth, useFetchPosts } from "@/libs";
 import { ActionsHandler } from "@/components/ActionsHandler";
 import { IPost } from "@/types";
 import { FontAwesome } from "@expo/vector-icons";
@@ -9,16 +9,25 @@ import { INavigationType } from "@/types/navigation";
 import Card from "@/components/Card/Card";
 import CardText from "@/components/Card/CardText";
 import Avatar from "@/components/Avatar";
+import AddPostForm from "@/components/AddPostForm";
 
 const PostsScreen = () => {
+    const { user, isLoggedIn } = useAuth();
     const navigation = useNavigation<INavigationType>();
-    const { ...postsState } = useFetchPosts();
+    const { removePost, ...postsState } = useFetchPosts();
+
     return (
         <ActionsHandler<IPost[]> {...postsState}>
             {(posts) => (
                 <ScrollView style={styles.container}>
+                    {isLoggedIn && user && <AddPostForm userId={user.id} />}
                     {posts.map((post) => (
                         <Card key={post.id}>
+                            {isLoggedIn && (
+                                <Pressable style={styles.removeIcon} onPress={() => removePost(post.id)}>
+                                    {() => <FontAwesome name="trash" color="red" size={25} />}
+                                </Pressable>
+                            )}
                             <View style={styles.avatar}>
                                 <Avatar onPress={() => navigation.navigate("userModal", { id: post.userId })} />
                             </View>
@@ -60,5 +69,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderTopWidth: 1,
         borderTopColor: "white",
+    },
+    removeIcon: {
+        padding: 15,
+        position: "absolute",
+        left: 10,
+        top: 10,
     },
 });
