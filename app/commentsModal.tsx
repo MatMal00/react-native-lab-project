@@ -7,6 +7,7 @@ import { ActionsHandler } from "@/components/ActionsHandler";
 import { IComment } from "@/types";
 import Avatar from "@/components/Avatar";
 import Card from "@/components/Card/Card";
+import CardText from "@/components/Card/CardText";
 
 const CommentsModalScreen = () => {
     const {
@@ -27,8 +28,8 @@ const CommentsModalScreen = () => {
                     <ScrollView style={styles.scrollView}>
                         {comments.map((comment) => (
                             <Card>
-                                <Text style={styles.scrollViewTitle}>{comment.email}</Text>
-                                <Text style={styles.scrollViewDescription}>{comment.body}</Text>
+                                <CardText style={styles.scrollViewTitle}>{comment.email}</CardText>
+                                <CardText style={styles.scrollViewDescription}>{comment.body}</CardText>
                             </Card>
                         ))}
                     </ScrollView>
