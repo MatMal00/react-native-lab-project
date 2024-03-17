@@ -9,7 +9,7 @@ interface ICardProps {
 
 const Card = ({ children }: ICardProps) => {
     return (
-        <View style={[styles.card]} darkColor="#343434" lightColor="#8f8f8f">
+        <View style={[styles.card]} darkColor="#343434" lightColor="#343434">
             {children}
         </View>
     );

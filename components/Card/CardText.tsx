@@ -7,7 +7,7 @@ interface ICardProps extends TextProps {
 
 const CardText = ({ children, ...props }: ICardProps) => {
     return (
-        <Text darkColor="#fff" lightColor="#000" {...props}>
+        <Text darkColor="#fff" lightColor="#fff" {...props}>
             {children}
         </Text>
     );
