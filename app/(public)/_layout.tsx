@@ -89,6 +89,13 @@ const TabLayout = () => {
                     href: !isLoggedIn ? "login" : null,
                 }}
             />
+            <Tabs.Screen
+                name="photos"
+                options={{
+                    title: "Photos",
+                    href: null,
+                }}
+            />
         </Tabs>
     );
 };

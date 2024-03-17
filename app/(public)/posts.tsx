@@ -27,14 +27,16 @@ const PostsScreen = () => {
 
                 return (
                     <>
-                        <View style={{ flexDirection: "row", gap: 10, padding: 20 }}>
-                            <CheckBox
-                                onPress={() => setIsChecked((prev) => !prev)}
-                                checked={isChecked}
-                                color="#c2a83e"
-                            />
-                            <Text>Show my posts</Text>
-                        </View>
+                        {isLoggedIn && (
+                            <View style={{ flexDirection: "row", gap: 10, padding: 20 }}>
+                                <CheckBox
+                                    onPress={() => setIsChecked((prev) => !prev)}
+                                    checked={isChecked}
+                                    color="#c2a83e"
+                                />
+                                <Text>Show my posts</Text>
+                            </View>
+                        )}
                         <ScrollView style={styles.container}>
                             {isLoggedIn && user && <AddPostForm userId={user.id} />}
                             {filteredPosts.map((post) => (
