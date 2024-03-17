@@ -26,7 +26,7 @@ const PostsScreen = () => {
                             <CardText>{post.body}</CardText>
                             <Pressable
                                 style={styles.commentsBtn}
-                                onPress={() => navigation.navigate("commentsModal", { id: post.id })}
+                                onPress={() => navigation.navigate("commentsModal", { title: post.title, id: post.id })}
                             >
                                 <CardText style={{ color: "#c2a83e", fontSize: 15 }}>Comments</CardText>
                                 <FontAwesome name="comment-o" size={30} color={"#c2a83e"} style={{}} />

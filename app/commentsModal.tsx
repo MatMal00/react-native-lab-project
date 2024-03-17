@@ -1,41 +1,71 @@
-import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 import { useRoute } from "@react-navigation/native";
+import { useFetchComments } from "@/libs";
+import { ActionsHandler } from "@/components/ActionsHandler";
+import { IComment } from "@/types";
+import Avatar from "@/components/Avatar";
+import Card from "@/components/Card/Card";
 
 const CommentsModalScreen = () => {
     const {
-        params: { id },
+        params: { title, id },
     } = useRoute<any>();
+    const commentsState = useFetchComments(id);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{id}</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-            <EditScreenInfo path="app/modal.tsx" />
+        <ActionsHandler<IComment[]> {...commentsState}>
+            {(comments) => (
+                <View style={styles.container}>
+                    <Avatar />
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.description}>
+                        {comments.length === 1 ? `${comments.length} Comment` : `${comments.length} Comments`}
+                    </Text>
 
-            {/* Use a light status bar on iOS to account for the black space above the modal */}
-            <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
-        </View>
+                    <ScrollView style={styles.scrollView}>
+                        {comments.map((comment) => (
+                            <Card>
+                                <Text style={styles.scrollViewTitle}>{comment.email}</Text>
+                                <Text style={styles.scrollViewDescription}>{comment.body}</Text>
+                            </Card>
+                        ))}
+                    </ScrollView>
+                </View>
+            )}
+        </ActionsHandler>
     );
 };
 export default CommentsModalScreen;
 
 const styles = StyleSheet.create({
     container: {
+        padding: 14,
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
     },
     title: {
+        marginTop: 20,
+        fontSize: 20,
+        fontWeight: "bold",
+        alignSelf: "flex-start",
+    },
+    description: {
+        marginTop: 20,
+        marginBottom: 20,
+        fontSize: 18,
+        alignSelf: "flex-start",
+    },
+    scrollView: {
+        paddingHorizontal: 5,
+    },
+    scrollViewTitle: {
         fontSize: 20,
         fontWeight: "bold",
     },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: "80%",
+    scrollViewDescription: {
+        fontSize: 18,
     },
 });
