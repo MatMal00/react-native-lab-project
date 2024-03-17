@@ -28,7 +28,7 @@ const SettingsModal = () => {
                             placeholder="Search"
                         />
                         {filteredUsers.map((user, index) => (
-                            <View style={{ backgroundColor: "transparent" }}>
+                            <View key={user.id} style={{ backgroundColor: "transparent" }}>
                                 <Text style={{ color: "#c2a83e", alignSelf: "center", fontSize: 25 }}>
                                     User No. {index + 1}
                                 </Text>
