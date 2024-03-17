@@ -36,7 +36,10 @@ const AlbumsScreen = () => {
                         )}
                         <ScrollView style={styles.container}>
                             {filteredAlbums.map((album) => (
-                                <Pressable onPress={() => navigation.navigate("photos", { id: album.id })}>
+                                <Pressable
+                                    key={album.id}
+                                    onPress={() => navigation.navigate("photos", { id: album.id })}
+                                >
                                     <Card key={album.id}>
                                         <CardText style={styles.title}>{album.title}</CardText>
                                         <FontAwesome

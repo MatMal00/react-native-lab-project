@@ -92,6 +92,13 @@ const RootLayoutNav = () => {
                             headerTitle: "Author details",
                         }}
                     />
+                    <Stack.Screen
+                        name="settingsModal"
+                        options={{
+                            presentation: "modal",
+                            headerTitle: "Settings",
+                        }}
+                    />
                 </Stack>
             </RouteProtector>
             <Toast />

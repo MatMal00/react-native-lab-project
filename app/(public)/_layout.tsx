@@ -1,12 +1,13 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
+import { Tabs, useNavigation } from "expo-router";
 import { Pressable } from "react-native";
 
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useAuth } from "@/libs";
+import { INavigationType } from "@/types/navigation";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>["name"]; color: string }) {
@@ -16,20 +17,19 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>["nam
 const TabLayout = () => {
     const { isLoggedIn, logout } = useAuth();
     const colorScheme = useColorScheme();
+    const navigation = useNavigation<INavigationType>();
 
     const headerIcon = isLoggedIn ? (
-        <Link href="/profile" asChild>
-            <Pressable>
-                {({ pressed }) => (
-                    <FontAwesome
-                        name="user-circle"
-                        size={25}
-                        color={Colors[colorScheme ?? "light"].text}
-                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                )}
-            </Pressable>
-        </Link>
+        <Pressable onPress={() => navigation.navigate("settingsModal")}>
+            {({ pressed }) => (
+                <FontAwesome
+                    name="user-circle"
+                    size={25}
+                    color={Colors[colorScheme ?? "light"].text}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                />
+            )}
+        </Pressable>
     ) : null;
 
     const signOutIcon = isLoggedIn ? (
