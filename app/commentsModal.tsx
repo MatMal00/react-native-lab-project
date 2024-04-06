@@ -27,7 +27,7 @@ const CommentsModalScreen = () => {
 
                     <ScrollView style={styles.scrollView}>
                         {comments.map((comment) => (
-                            <Card>
+                            <Card key={comment.id}>
                                 <CardText style={styles.scrollViewTitle}>{comment.email}</CardText>
                                 <CardText style={styles.scrollViewDescription}>{comment.body}</CardText>
                             </Card>
